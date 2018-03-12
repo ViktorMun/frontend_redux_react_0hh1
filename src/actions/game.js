@@ -12,14 +12,19 @@ export const createGame = (rows = 6) => {
   return (dispatch) => {
     request
       .post(`${baseUrl}`)
+      .send({game: "newgame"})
       .then((response) => {
-        const column = response.body
-        const locked = response.body
+        const game = response.body.game
+        const board = response.body.board
+        const locked = response.body.locked
+        const sidebar = response.body.sidebar
         dispatch({
           type: 'CREATE_GAME',
-          payload: column, locked
+          payload: game, board, locked, sidebar
         })
-      })
+
+
+})
       .catch((error) => {
         console.error('Something went wrong!', error)
       })
